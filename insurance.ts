@@ -1,7 +1,7 @@
 const data = require("./data.json");
 const D = require("@matthewwei35/date_lib")
 
-// Helper Functions //
+// ---- Helper Functions ---- //
 function isEmpty(str: string): boolean {
   const words: string[] = str.trim().split('');
   for (let i: number = 0; i < words.length; i += 1) {
@@ -21,8 +21,8 @@ function upperFirst(str: string): string {
   return firstLetter + strEndSlice;
 }
 
-// Solution //
-const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+// ---- Solution ---- //
+const months: string[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 
 function formatNumber(number: string): string {
   if (isEmpty(number) === true) {
@@ -35,17 +35,30 @@ function formatNumber(number: string): string {
 }
 
 function printData() {
-  console.log(`${upperFirst(data[0].first_name)} ${upperFirst(data[0].last_name)}`)
+  for (let i: number = 0; i < data.length ; i += 1) {
+    // Divider
+    console.log('~~~~~~~~~~')
 
-  console.log(`${upperFirst(data[0].make)} ${upperFirst(data[0].model)}`)
+    // Name
+    console.log(`${upperFirst(data[i].first_name)} ${upperFirst(data[i].last_name)}`)
 
-  const purchaseDate = new Date(data[0].purchased)
-  console.log(`Purchased: ${months[purchaseDate.getMonth()]} ${purchaseDate.getDate()}, ${purchaseDate.getFullYear()}`)
+    // Car Model
+    console.log(`${upperFirst(data[i].make)} ${upperFirst(data[i].model)}`)
 
-  const lastPayment = new D(data[0].lastpayment)
-  console.log(lastPayment.when())
+    // Purchase Date
+    const purchaseDate: Date = new Date(data[i].purchased)
+    console.log(`Purchased: ${months[purchaseDate.getMonth()]} ${purchaseDate.getDate()}, ${purchaseDate.getFullYear()}`)
 
-  console.log(`Phone: ${formatNumber(data[0].phone)}`)
+    // Last Payment
+    const lastPayment = new D(data[i].lastpayment)
+    console.log(lastPayment.when())
+
+    // Phone Number
+    console.log(`Phone: ${formatNumber(data[i].phone)}`)
+
+    // City
+    console.log(`City: ${upperFirst(data[i].city)}`)
+  }
 }
 
 printData()

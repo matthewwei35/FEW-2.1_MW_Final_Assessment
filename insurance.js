@@ -1,6 +1,6 @@
 var data = require("./data.json");
 var D = require("@matthewwei35/date_lib");
-// Helper Functions //
+// ---- Helper Functions ---- //
 function isEmpty(str) {
     var words = str.trim().split('');
     for (var i = 0; i < words.length; i += 1) {
@@ -18,7 +18,7 @@ function upperFirst(str) {
     var firstLetter = str[0].toUpperCase();
     return firstLetter + strEndSlice;
 }
-// Solution //
+// ---- Solution ---- //
 var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 function formatNumber(number) {
     if (isEmpty(number) === true) {
@@ -30,13 +30,23 @@ function formatNumber(number) {
     return "(" + areaCode + ") " + middle + "-" + end;
 }
 function printData() {
-    console.log(upperFirst(data[0].first_name) + " " + upperFirst(data[0].last_name));
-    console.log(upperFirst(data[0].make) + " " + upperFirst(data[0].model));
-    var purchaseDate = new Date(data[0].purchased);
-    console.log("Purchased: " + months[purchaseDate.getMonth()] + " " + purchaseDate.getDate() + ", " + purchaseDate.getFullYear());
-    var lastPayment = new D(data[0].lastpayment);
-    console.log(lastPayment.when());
-    console.log("Phone: " + formatNumber(data[0].phone));
+    for (var i = 0; i < data.length; i += 1) {
+        console.log('~~~~~~~~~~');
+        // Name
+        console.log(upperFirst(data[i].first_name) + " " + upperFirst(data[i].last_name));
+        // Car Model
+        console.log(upperFirst(data[i].make) + " " + upperFirst(data[i].model));
+        // Purchase Date
+        var purchaseDate = new Date(data[i].purchased);
+        console.log("Purchased: " + months[purchaseDate.getMonth()] + " " + purchaseDate.getDate() + ", " + purchaseDate.getFullYear());
+        // Last Payment
+        var lastPayment = new D(data[i].lastpayment);
+        console.log(lastPayment.when());
+        // Phone Number
+        console.log("Phone: " + formatNumber(data[i].phone));
+        // City
+        console.log("City: " + upperFirst(data[i].city));
+    }
 }
 printData();
 module.exports = { formatNumber: formatNumber };
